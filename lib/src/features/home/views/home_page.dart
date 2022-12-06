@@ -1,6 +1,5 @@
 import 'package:fake_shop/src/features/home/components/product_list.dart';
 import 'package:fake_shop/src/features/home/controllers/product_category_controller.dart';
-import 'package:fake_shop/src/features/home/state/product_category_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,25 +15,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final productState = ref.watch(productProvider);
-        final products = ref.read(productProvider.notifier).products;
+        final products = ref.watch(productProvider.notifier).products;
         return Scaffold(
           appBar: AppBar(),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: products.length,
-                    itemBuilder: (ctx, index) {
-                      return ProductList(
-                        productImage: products[index].image,
-                        productName: products[index].title,
-                        productPrice: products[index].price.toString(),
-                      );
-                    },
-                  ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: products.length,
+                  itemBuilder: (ctx, index) {
+                    return ProductList(
+                      productImage: products[index].image,
+                      productName: products[index].title,
+                      productPrice: products[index].price.toString(),
+                    );
+                  },
+                ),
                 const SizedBox(height: 18),
               ],
             ),

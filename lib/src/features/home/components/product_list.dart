@@ -18,10 +18,10 @@ class ProductList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 22.0),
       child: ListTile(
-        leading: CachedNetworkImage(
-          imageUrl: productImage.toString(),
-          placeholder: (context, _) => const CircularProgressIndicator(),
-          errorWidget: (context, _, error) => const Icon(Icons.error),
+        leading: Image.network(
+          height: 50,
+          width: 50,
+          productImage.toString(),
         ),
         title: Text('$productName'),
         trailing: Text('$productPrice TK'),
