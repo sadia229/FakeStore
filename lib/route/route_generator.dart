@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    //final Map? arguments = settings.arguments as Map?;
     switch (settings.name) {
       case '/home':
         return MaterialPageRoute(
