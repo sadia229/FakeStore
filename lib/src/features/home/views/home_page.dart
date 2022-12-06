@@ -17,24 +17,24 @@ class _HomePageState extends State<HomePage> {
     return Consumer(
       builder: (context, ref, _) {
         final productState = ref.watch(productProvider);
+        final products = ref.read(productProvider.notifier).products;
         return Scaffold(
           appBar: AppBar(),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                if (productState is ProductSuccessState) ...[
                   ListView.builder(
                     shrinkWrap: true,
-                    itemCount: productState.product?.title?.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: products.length,
                     itemBuilder: (ctx, index) {
                       return ProductList(
-                        productImage: productState.product!.image,
-                        productName: productState.product!.title,
-                        productPrice: productState.product!.price.toString(),
+                        productImage: products[index].image,
+                        productName: products[index].title,
+                        productPrice: products[index].price.toString(),
                       );
                     },
                   ),
-                ],
                 const SizedBox(height: 18),
               ],
             ),

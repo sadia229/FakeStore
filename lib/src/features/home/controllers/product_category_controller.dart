@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fake_shop/core/base/base_state.dart';
 import 'package:fake_shop/core/network/api.dart';
 import 'package:fake_shop/core/network/network_utils.dart';
@@ -15,8 +17,7 @@ class ProductController extends StateNotifier<BaseState> {
   final Ref? ref;
 
   ProductController({this.ref}) : super(const InitialState());
-  Product? products;
-
+  List<Product> products = [];
   Future fetchProducts() async {
     state = const LoadingState();
     var responseBody;
@@ -24,8 +25,14 @@ class ProductController extends StateNotifier<BaseState> {
       responseBody =
           await Network.handleResponse(await Network.getRequest(API.products));
       if (responseBody != null) {
-        products = Product.fromJson(responseBody);
-        state = ProductSuccessState(products);
+
+        for(Map<String?, dynamic> product in responseBody){
+          products.add(Product.fromJson(product));
+        }
+        print("loop products");
+        print(products);
+        // products = Product.fromJson(responseBody);
+        // state = ProductSuccessState(products);
       } else {
         state = const ErrorState();
       }
